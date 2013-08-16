@@ -1,14 +1,11 @@
 rivr-speechtek-demo
 ===================
 
-Build
------
+Build & Run
+-----------
 
-./gradlew build
+Make sur to have the JAVA_HOME environment variable set.
 
-Run
----
-
-./gradlew jettyRun
+     ./gradlew jettyRunWar
 
 
