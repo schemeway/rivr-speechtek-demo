@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Title: rivr-speechtek-demo
+Implementation-Version: 0.1.0
+Implementation-Vendor: Nu Echo Inc.
+

@@ -1,0 +1,50 @@
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+
+version = "0.1.0"
+
+repositories { 
+  mavenCentral() 
+}
+
+sourceCompatibility = '1.6'
+
+dependencies {
+  compile 'com.nuecho:rivr-voicexml:0.9.1'
+  providedCompile 'javax.servlet:servlet-api:2.5'
+  testCompile 'junit:junit:4.10'
+  runtime 'org.glassfish:javax.json:1.0.1'
+  runtime 'ch.qos.logback:logback-classic:1.0.13'
+}
+
+eclipse{
+  classpath {
+    defaultOutputDir = file("${project.projectDir}/build/classes")
+      containers.clear()
+      containers.add("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6")
+  }
+}
+war {
+  manifest.mainAttributes(
+    'Implementation-Title': 'rivr-speechtek-demo',
+    'Implementation-Version': version,
+    'Implementation-Vendor': 'Nu Echo Inc.' 
+  )
+}
+
+task wrapper(type: Wrapper) { gradleVersion = '1.6' }
+
+import org.gradle.api.plugins.jetty.internal.Monitor
+
+jettyRunWar {
+  daemon = true
+} << {
+  // Workaround for bug http://issues.gradle.org/browse/GRADLE-2263
+  if (getStopPort() != null && getStopPort() > 0 && getStopKey() != null) {
+    Monitor monitor = new Monitor(getStopPort(), getStopKey(), server.getProxiedObject());
+    monitor.start();
+  }
+}
+
+[jettyRun, jettyRunWar,jettyStop]*.stopPort = 6666
+[jettyRun, jettyRunWar,jettyStop]*.stopKey = 'stopKey'
