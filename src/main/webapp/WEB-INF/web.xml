@@ -14,7 +14,7 @@
 
     <init-param>
       <param-name>dialogue.class</param-name>
-      <param-value>com.nuecho.rivr.demo.speechtek.DemoDialogue</param-value>
+      <param-value>com.nuecho.rivr.demo.speechtek.FirstDemoDialogue</param-value>
     </init-param>
 
     <init-param>
