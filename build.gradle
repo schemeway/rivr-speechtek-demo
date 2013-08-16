@@ -36,15 +36,5 @@ task wrapper(type: Wrapper) { gradleVersion = '1.6' }
 
 import org.gradle.api.plugins.jetty.internal.Monitor
 
-jettyRunWar {
-  daemon = true
-} << {
-  // Workaround for bug http://issues.gradle.org/browse/GRADLE-2263
-  if (getStopPort() != null && getStopPort() > 0 && getStopKey() != null) {
-    Monitor monitor = new Monitor(getStopPort(), getStopKey(), server.getProxiedObject());
-    monitor.start();
-  }
-}
-
 [jettyRun, jettyRunWar,jettyStop]*.stopPort = 6666
 [jettyRun, jettyRunWar,jettyStop]*.stopKey = 'stopKey'
