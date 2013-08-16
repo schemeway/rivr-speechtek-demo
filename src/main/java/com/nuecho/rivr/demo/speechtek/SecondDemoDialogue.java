@@ -49,10 +49,14 @@ public final class SecondDemoDialogue implements VoiceXmlDialogue {
                                      .doubleValue();
 
                 if (score >= 0.6) {
-                    doTurn(context, new MessageTurn("feedback-done", new SynthesisText("Thanks!")));
+                    doTurn(context,
+                           new MessageTurn("feedback-done",
+                                           new SynthesisText("Thanks!")));
                     done = true;
                 } else {
-                    doTurn(context, new MessageTurn("feedback-repeat", new SynthesisText("Can you repeat that?")));
+                    doTurn(context,
+                           new MessageTurn("feedback-repeat",
+                                           new SynthesisText("Can you repeat that?")));
                 }
             }
 

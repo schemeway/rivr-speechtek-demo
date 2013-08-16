@@ -4,12 +4,11 @@
 
 package com.nuecho.rivr.demo.speechtek;
 
+import static junit.framework.Assert.*;
+
 import javax.json.*;
 
-import junit.framework.Assert;
-
 import org.junit.*;
-import org.junit.Test;
 import org.slf4j.*;
 
 import com.nuecho.rivr.core.channel.synchronous.step.*;
@@ -37,14 +36,15 @@ public class DialogueTests {
     public void testFirstDemoWithSmallNumber() {
         startDialogue(new FirstDemoDialogue(), new VoiceXmlFirstTurn());
 
-        Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
         mDialogueChannel.processRecognition(
             Json.createArrayBuilder()
-                .add(Json.createObjectBuilder().add("interpretation", "100"))
+                .add(Json.createObjectBuilder()
+                         .add("interpretation", "100"))
                 .build());
 
-        Assert.assertEquals("feedback-small", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("feedback-small", mDialogueChannel.getLastStepAsOutputTurn().getName());
         mDialogueChannel.processNoAction();
     }
 
@@ -52,14 +52,15 @@ public class DialogueTests {
     public void testFirstDemoWithLargeNumber() {
         startDialogue(new FirstDemoDialogue(), new VoiceXmlFirstTurn());
 
-        Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
         mDialogueChannel.processRecognition(
             Json.createArrayBuilder()
-                .add(Json.createObjectBuilder().add("interpretation", "2000"))
+                .add(Json.createObjectBuilder()
+                         .add("interpretation", "2000"))
                 .build());
 
-        Assert.assertEquals("feedback-large", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("feedback-large", mDialogueChannel.getLastStepAsOutputTurn().getName());
         mDialogueChannel.processNoAction();
     }
 
@@ -67,18 +68,18 @@ public class DialogueTests {
     public void testSecondDemoWithLowConfidence() {
         startDialogue(new SecondDemoDialogue(), new VoiceXmlFirstTurn());
 
-        Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
         mDialogueChannel.processRecognition(
             Json.createArrayBuilder()
                 .add(Json.createObjectBuilder()
-                     .add("interpretation", "100")
-                     .add("confidence", 0.3))
+                         .add("interpretation", "100")
+                         .add("confidence", 0.3))
                 .build());
-        Assert.assertEquals("feedback-repeat", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("feedback-repeat", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
         mDialogueChannel.processNoAction();
-        Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
         mDialogueChannel.processHangup();
     }
@@ -87,15 +88,16 @@ public class DialogueTests {
     public void testSecondDemoWithHighConfidence() {
         startDialogue(new SecondDemoDialogue(), new VoiceXmlFirstTurn());
 
-        Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
-        mDialogueChannel.processRecognition(Json.createArrayBuilder()
-                                                .add(Json.createObjectBuilder()
-                                                         .add("interpretation", "100")
-                                                         .add("confidence", 0.9))
-                                                .build());
+        mDialogueChannel.processRecognition(
+            Json.createArrayBuilder()
+                .add(Json.createObjectBuilder()
+                         .add("interpretation", "100")
+                         .add("confidence", 0.9))
+                .build());
 
-        Assert.assertEquals("feedback-done", mDialogueChannel.getLastStepAsOutputTurn().getName());
+        assertEquals("feedback-done", mDialogueChannel.getLastStepAsOutputTurn().getName());
         mDialogueChannel.processNoAction();
 
     }
