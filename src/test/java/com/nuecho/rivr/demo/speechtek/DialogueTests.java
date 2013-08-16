@@ -39,9 +39,10 @@ public class DialogueTests {
 
         Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
-        mDialogueChannel.processRecognition(Json.createArrayBuilder()
-                                                .add(Json.createObjectBuilder().add("interpretation", "100"))
-                                                .build());
+        mDialogueChannel.processRecognition(
+            Json.createArrayBuilder()
+                .add(Json.createObjectBuilder().add("interpretation", "100"))
+                .build());
 
         Assert.assertEquals("feedback-small", mDialogueChannel.getLastStepAsOutputTurn().getName());
         mDialogueChannel.processNoAction();
@@ -53,9 +54,10 @@ public class DialogueTests {
 
         Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
-        mDialogueChannel.processRecognition(Json.createArrayBuilder()
-                                                .add(Json.createObjectBuilder().add("interpretation", "2000"))
-                                                .build());
+        mDialogueChannel.processRecognition(
+            Json.createArrayBuilder()
+                .add(Json.createObjectBuilder().add("interpretation", "2000"))
+                .build());
 
         Assert.assertEquals("feedback-large", mDialogueChannel.getLastStepAsOutputTurn().getName());
         mDialogueChannel.processNoAction();
@@ -67,11 +69,12 @@ public class DialogueTests {
 
         Assert.assertEquals("question", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
-        mDialogueChannel.processRecognition(Json.createArrayBuilder()
-                                                .add(Json.createObjectBuilder()
-                                                         .add("interpretation", "100")
-                                                         .add("confidence", 0.3))
-                                                .build());
+        mDialogueChannel.processRecognition(
+            Json.createArrayBuilder()
+                .add(Json.createObjectBuilder()
+                     .add("interpretation", "100")
+                     .add("confidence", 0.3))
+                .build());
         Assert.assertEquals("feedback-repeat", mDialogueChannel.getLastStepAsOutputTurn().getName());
 
         mDialogueChannel.processNoAction();

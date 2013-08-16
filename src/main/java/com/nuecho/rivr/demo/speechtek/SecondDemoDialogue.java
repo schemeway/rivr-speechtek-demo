@@ -25,13 +25,17 @@ import com.nuecho.rivr.voicexml.turn.output.interaction.*;
 public final class SecondDemoDialogue implements VoiceXmlDialogue {
 
     @Override
-    public VoiceXmlLastTurn run(VoiceXmlFirstTurn firstTurn, VoiceXmlDialogueContext context) throws Exception {
-        SpeechRecognitionConfiguration recConfig = new SpeechRecognitionConfiguration(new GrammarReference("builtin:grammar/number"));
+    public VoiceXmlLastTurn run(VoiceXmlFirstTurn firstTurn, VoiceXmlDialogueContext context)
+            throws Exception {
+        SpeechRecognitionConfiguration recConfig
+            = new SpeechRecognitionConfiguration(new GrammarReference("builtin:grammar/number"));
 
-        InteractionTurn question = newInteractionBuilder("question").addPrompt(new SynthesisText("Say a number."))
-                                                                    .build(recConfig, TimeValue.seconds(5));
+        InteractionTurn question
+            = newInteractionBuilder("question")
+                .addPrompt(new SynthesisText("Say a number."))
+                .build(recConfig, TimeValue.seconds(5));
+
         boolean done = false;
-
         do {
 
             VoiceXmlInputTurn answer = doTurn(context, question);

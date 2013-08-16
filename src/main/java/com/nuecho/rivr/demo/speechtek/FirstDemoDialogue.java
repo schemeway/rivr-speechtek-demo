@@ -24,11 +24,18 @@ import com.nuecho.rivr.voicexml.turn.output.interaction.*;
 public final class FirstDemoDialogue implements VoiceXmlDialogue {
 
     @Override
-    public VoiceXmlLastTurn run(VoiceXmlFirstTurn firstTurn, VoiceXmlDialogueContext context) throws Exception {
-        SpeechRecognitionConfiguration recConfig = new SpeechRecognitionConfiguration(new GrammarReference("builtin:grammar/number"));
+    public VoiceXmlLastTurn run(VoiceXmlFirstTurn firstTurn, VoiceXmlDialogueContext context)
+            throws Exception {
 
-        InteractionTurn question = newInteractionBuilder("question").addPrompt(new SynthesisText("Say a number."))
-                                                                    .build(recConfig, TimeValue.seconds(5));
+        SpeechRecognitionConfiguration recConfig
+            = new SpeechRecognitionConfiguration(
+                 new GrammarReference("builtin:grammar/number"));
+
+        InteractionTurn question
+            = newInteractionBuilder("question")
+                .addPrompt(new SynthesisText("Say a number."))
+                .build(recConfig, TimeValue.seconds(5));
+
         VoiceXmlInputTurn answer = doTurn(context, question);
 
         int number = Integer.parseInt(answer.getRecognitionInfo()
@@ -37,9 +44,13 @@ public final class FirstDemoDialogue implements VoiceXmlDialogue {
                                             .getString("interpretation"));
 
         if (number >= 1000) {
-            doTurn(context, new MessageTurn("feedback-large", new SynthesisText("That's a big number")));
+            doTurn(context,
+                   new MessageTurn("feedback-large",
+                                   new SynthesisText("That's a big number")));
         } else {
-            doTurn(context, new MessageTurn("feedback-small", new SynthesisText("That's a reasonable number")));
+            doTurn(context,
+                   new MessageTurn("feedback-small",
+                                   new SynthesisText("That's a reasonable number")));
         }
 
         return new VoiceXmlExitTurn("exit");
